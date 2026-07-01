@@ -10,6 +10,21 @@ export const FONT: Record<FontKind, string> = {
   mono: "var(--font-mono), ui-monospace, monospace",
 };
 
+// Real font stacks + Google Fonts specs for standalone HTML/CSS export.
+export const FONT_STACK: Record<FontKind, string> = {
+  serif: "'Spectral', Georgia, serif",
+  sans: "'Hanken Grotesk', system-ui, sans-serif",
+  alt: "'Archivo', system-ui, sans-serif",
+  mono: "'JetBrains Mono', ui-monospace, monospace",
+};
+
+export const GOOGLE_FONT: Record<FontKind, string> = {
+  serif: "Spectral:ital,wght@0,400;0,600;0,800;1,400",
+  sans: "Hanken+Grotesk:wght@400;500;700",
+  alt: "Archivo:wght@600;800;900",
+  mono: "JetBrains+Mono:wght@400;700",
+};
+
 export type ThemeColors = {
   bg: string;
   surface: string;

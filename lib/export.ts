@@ -1,19 +1,5 @@
 import type { Variant, GenerateInput, HeroVariant } from "./schema";
-import type { Theme, FontKind } from "./design-presets";
-
-const FONT_STACK: Record<FontKind, string> = {
-  serif: "'Spectral', Georgia, serif",
-  sans: "'Hanken Grotesk', system-ui, sans-serif",
-  alt: "'Archivo', system-ui, sans-serif",
-  mono: "'JetBrains Mono', ui-monospace, monospace",
-};
-
-const GOOGLE_FONT: Record<FontKind, string> = {
-  serif: "Spectral:wght@400;600;800",
-  sans: "Hanken+Grotesk:wght@400;500;700",
-  alt: "Archivo:wght@600;800;900",
-  mono: "JetBrains+Mono:wght@400;700",
-};
+import { FONT_STACK, GOOGLE_FONT, type Theme } from "./design-presets";
 
 // A self-contained, dev-ready hero snippet in the chosen visual style.
 export function heroToHtml(theme: Theme, hero: HeroVariant): string {

@@ -12,6 +12,7 @@ import { GeneratorForm, type FormValue } from "@/components/GeneratorForm";
 import { VariantCard } from "@/components/VariantCard";
 import { HeroVariantCard } from "@/components/HeroVariantCard";
 import { PreviewStudio } from "@/components/PreviewStudio";
+import { HeroEditor } from "@/components/HeroEditor";
 import { ABCompare } from "@/components/ABCompare";
 import { ResultsToolbar, type ExportKind } from "@/components/ResultsToolbar";
 import { EmptyState } from "@/components/EmptyState";
@@ -74,6 +75,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
 
   const [previewIdx, setPreviewIdx] = useState(0);
+  const [editing, setEditing] = useState(false);
   const [compareOn, setCompareOn] = useState(false);
   const [selected, setSelected] = useState<string[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -346,24 +348,53 @@ export default function Home() {
 
             {hasResults && (
               <>
-                <PreviewStudio
-                  count={count}
-                  previewIdx={previewIdx}
-                  onPreviewIdx={setPreviewIdx}
-                  sezione={shownInput.sezione}
-                  text={full ? selHero?.headline ?? "" : selVariant?.testo ?? ""}
-                  full={
-                    full && selHero
-                      ? {
-                          headline: selHero.headline,
-                          subheadline: selHero.subheadline,
-                          cta: selHero.cta,
-                          socialProof: selHero.social_proof,
-                        }
-                      : null
-                  }
-                  heroForExport={full ? selHero : null}
-                />
+                {full && (
+                  <div className="flex rounded-lg border border-border p-0.5 w-fit">
+                    {[
+                      { k: false, label: "Anteprima stili" },
+                      { k: true, label: "✎ Editor canvas" },
+                    ].map((o) => (
+                      <button
+                        key={String(o.k)}
+                        onClick={() => setEditing(o.k)}
+                        className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                          editing === o.k
+                            ? "bg-secondary text-foreground"
+                            : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        {o.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {full && editing && selHero ? (
+                  <HeroEditor
+                    key={`${selHero.variante}-${selHero.headline}`}
+                    hero={selHero}
+                    input={shownInput}
+                  />
+                ) : (
+                  <PreviewStudio
+                    count={count}
+                    previewIdx={previewIdx}
+                    onPreviewIdx={setPreviewIdx}
+                    sezione={shownInput.sezione}
+                    text={full ? selHero?.headline ?? "" : selVariant?.testo ?? ""}
+                    full={
+                      full && selHero
+                        ? {
+                            headline: selHero.headline,
+                            subheadline: selHero.subheadline,
+                            cta: selHero.cta,
+                            socialProof: selHero.social_proof,
+                          }
+                        : null
+                    }
+                    heroForExport={full ? selHero : null}
+                  />
+                )}
 
                 <ResultsToolbar
                   onRefine={refine}
