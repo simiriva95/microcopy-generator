@@ -2,26 +2,109 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Editorial: warm paper + ink, claret accent. Full oklch colors. */
+    --background: oklch(0.984 0.006 83);
+    --foreground: oklch(0.24 0.021 55);
+    --card: oklch(0.997 0.004 83);
+    --card-foreground: oklch(0.24 0.021 55);
+    --popover: oklch(0.997 0.004 83);
+    --popover-foreground: oklch(0.24 0.021 55);
+    --primary: oklch(0.47 0.135 24);
+    --primary-foreground: oklch(0.98 0.01 83);
+    --secondary: oklch(0.955 0.008 80);
+    --secondary-foreground: oklch(0.32 0.02 50);
+    --muted: oklch(0.955 0.008 80);
+    --muted-foreground: oklch(0.52 0.017 58);
+    --accent: oklch(0.93 0.02 60);
+    --accent-foreground: oklch(0.3 0.03 45);
+    --destructive: oklch(0.52 0.18 27);
+    --destructive-foreground: oklch(0.98 0.01 83);
+    --success: oklch(0.55 0.11 150);
+    --border: oklch(0.9 0.01 74);
+    --input: oklch(0.9 0.01 74);
+    --ring: oklch(0.47 0.135 24);
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: oklch(0.205 0.014 58);
+    --foreground: oklch(0.93 0.012 80);
+    --card: oklch(0.245 0.015 58);
+    --card-foreground: oklch(0.93 0.012 80);
+    --popover: oklch(0.245 0.015 58);
+    --popover-foreground: oklch(0.93 0.012 80);
+    --primary: oklch(0.66 0.14 30);
+    --primary-foreground: oklch(0.18 0.01 55);
+    --secondary: oklch(0.29 0.016 58);
+    --secondary-foreground: oklch(0.9 0.012 78);
+    --muted: oklch(0.29 0.016 58);
+    --muted-foreground: oklch(0.72 0.014 72);
+    --accent: oklch(0.33 0.02 55);
+    --accent-foreground: oklch(0.92 0.012 78);
+    --destructive: oklch(0.62 0.16 27);
+    --destructive-foreground: oklch(0.97 0.01 80);
+    --success: oklch(0.68 0.12 150);
+    --border: oklch(0.33 0.014 58);
+    --input: oklch(0.36 0.014 58);
+    --ring: oklch(0.66 0.14 30);
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "kern", "liga", "calt";
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 26%, transparent);
+  }
+  /* editorial numerals + fraction ligatures where useful */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  /* subtle paper grain for the light theme canvas */
+  .paper-grain {
+    background-image: radial-gradient(
+      color-mix(in oklab, var(--foreground) 4%, transparent) 0.5px,
+      transparent 0.6px
+    );
+    background-size: 4px 4px;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-rise {
+  animation: rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise {
+    animation: none;
+  }
+  * {
+    scroll-behavior: auto !important;
   }
 }
