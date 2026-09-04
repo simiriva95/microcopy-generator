@@ -9,7 +9,7 @@
   <img alt="Groq" src="https://img.shields.io/badge/Groq-llama--3.3--70b-F55036" />
 </p>
 
-<!-- SCREENSHOT: hero shot of the app — generator form on the left, A/B variant cards with rationale on the right, 1280px wide -->
+<p align="center"><img src="docs/screenshots/hero.png" width="820" alt="hero shot of the app — generator form on the left, A/B variant cards with rationale on the right, 1280px wide"></p>
 
 Most AI copy tools hand you a list of sentences and leave you to guess which one to ship. Microcopy
 Generator answers the other half of the question: for every variant it states the psychological
@@ -44,7 +44,7 @@ and export it as ready-to-paste HTML.
 - **No browser storage** — history, favourites and the light/dark toggle live in memory for the
   session only; nothing is persisted client-side.
 
-<!-- SCREENSHOT: preview studio — style preset picker, page-context frame and the palette panel side by side -->
+<p align="center"><img src="docs/screenshots/preview-studio.png" width="820" alt="preview studio — style preset picker, page-context frame and the palette panel side by side"></p>
 
 ## Tech stack
 
